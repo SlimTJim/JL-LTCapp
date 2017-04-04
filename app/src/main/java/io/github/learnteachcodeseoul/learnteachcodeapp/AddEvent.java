@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,7 +48,7 @@ public class AddEvent extends AppCompatActivity {
         startTimeSpinner = (Spinner) findViewById(R.id.startTimeSpinner);
         endTimeSpinner = (Spinner) findViewById(R.id.endTimeSpinner);
         dateText=(TextView) findViewById(R.id.dateText);
-        dateText.setText("           ");
+        dateText.setText("");
 
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, initTime());
         startTimeSpinner.setAdapter(timeAdapter);
@@ -86,25 +87,6 @@ public class AddEvent extends AppCompatActivity {
         }
 
 
-
-
-    public void clearName(View view) {
-        eventNameInput.setText("");
-    }
-
-    public void clearDate(View view) {
-        dateInput.setText("");
-    }
-
-    public void clearLocation(View view) {
-        locationInput.setText("");
-    }
-
-    public void clearDetail(View view) {
-        detailInput.setText("");
-    }
-
-
     public void createButtonClicked(View view) {
         Event event = new Event();
         event.setName(eventNameInput.getText().toString());
@@ -113,11 +95,14 @@ public class AddEvent extends AppCompatActivity {
         event.setEndTime(endTimeSpinner.getSelectedItem().toString());
         event.setLocation(locationInput.getText().toString());
         event.setDetail(detailInput.getText().toString());
-        eDBHandler.addEvent(event);
 
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (dateText.getText().toString().equals("")){
+            Toast.makeText(AddEvent.this, "Please pick a date!", Toast.LENGTH_SHORT).show();
+        }else {
+            eDBHandler.addEvent(event);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void cancelButtonClicked(View view) {
