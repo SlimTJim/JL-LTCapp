@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         eDBHandler = new EventDBHandler(this,null,null,2);
 
-        eventArrayList = getAllEvents();
+        eventArrayList = eDBHandler.getAllFutureEvents();
         final ArrayAdapter eventAdapter = new EventAdapter(this, eventArrayList);
         final ListView eventListView = (ListView) findViewById(R.id.eventList);
         eventListView.setAdapter(eventAdapter);
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -122,17 +122,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_past_events) {
+            Intent i = new Intent(this,PastEventList.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.right_slide_in_drawer,R.anim.fade_out_drawer);
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
@@ -141,8 +135,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public ArrayList<Event> getAllEvents(){
-        return eDBHandler.getAllEvents();
-    }
 
 }

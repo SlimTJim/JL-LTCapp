@@ -69,9 +69,33 @@ public class EventDBHandler extends SQLiteOpenHelper {
         db.delete(TABLE_EVENTS, COLUMN_ID + " = ?", new String[] { String.valueOf(event.getId()) });
     }
 
-    public ArrayList<Event> getAllEvents() {
+    public ArrayList<Event> getAllFutureEvents() {
         ArrayList<Event> eventArrayList = new ArrayList<Event>();
-        String selectQuery = "SELECT * FROM " + TABLE_EVENTS +" ORDER BY date("+COLUMN_DATE+") ASC";
+        String selectQuery = "SELECT * FROM " + TABLE_EVENTS + " WHERE "+COLUMN_DATE+ "> date('now') ORDER BY date("+COLUMN_DATE+") ASC";
+        //" ORDER BY date("+COLUMN_DATE+") ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setId(Integer.parseInt(cursor.getString(0)));
+                event.setName(cursor.getString(1));
+                event.setDate(cursor.getString(2));
+                event.setStartTime(cursor.getString(3));
+                event.setEndTime(cursor.getString(4));
+                event.setLocation(cursor.getString(5));
+                event.setDetail(cursor.getString(6));
+                eventArrayList.add(event);
+            } while (cursor.moveToNext());
+        }
+        return eventArrayList;
+    }
+
+    public ArrayList<Event> getAllPastEvents() {
+        ArrayList<Event> eventArrayList = new ArrayList<Event>();
+        String selectQuery = "SELECT * FROM " + TABLE_EVENTS + " WHERE "+COLUMN_DATE+ "< date('now') ORDER BY date("+COLUMN_DATE+") ASC";
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
