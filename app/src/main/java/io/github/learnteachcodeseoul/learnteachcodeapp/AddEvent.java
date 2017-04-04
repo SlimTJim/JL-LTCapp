@@ -1,17 +1,26 @@
 package io.github.learnteachcodeseoul.learnteachcodeapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class AddEvent extends AppCompatActivity {
+
+    Calendar myCalendar;
+    Button pickDateButton;
+    TextView dateText;
     EditText eventNameInput;
     EditText dateInput;
     EditText locationInput;
@@ -30,28 +39,54 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         eDBHandler = new EventDBHandler(this, null, null, 2);
-
+        myCalendar = Calendar.getInstance();
+        pickDateButton = (Button) findViewById(R.id.pickDateButton);
         eventNameInput = (EditText) findViewById(R.id.eventNameInput);
         locationInput = (EditText) findViewById(R.id.locationInput);
         detailInput = (EditText) findViewById(R.id.detailInput);
-
-        monthSpinner = (Spinner) findViewById(R.id.monthSpinner);
-        daySpinner = (Spinner) findViewById(R.id.daySpinner);
-        yearSpinner = (Spinner) findViewById(R.id.yearSpinner);
         startTimeSpinner = (Spinner) findViewById(R.id.startTimeSpinner);
-        endTimeSpinner= (Spinner) findViewById(R.id.endTimeSpinner);
+        endTimeSpinner = (Spinner) findViewById(R.id.endTimeSpinner);
+        dateText=(TextView) findViewById(R.id.dateText);
+        dateText.setText("           ");
 
-        ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,initDays());
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,initYears());
-        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,initTime());
-        daySpinner.setAdapter(dayAdapter);
-        yearSpinner.setAdapter(yearAdapter);
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, initTime());
         startTimeSpinner.setAdapter(timeAdapter);
         endTimeSpinner.setAdapter(timeAdapter);
 
 
 
+
+       final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+        pickDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(AddEvent.this, date,
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH))
+                        .show();
+            }
+        });
+
     }
+
+        private void updateLabel() {
+            String myFormat = "yyyy-MM-dd";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            dateText.setText(sdf.format(myCalendar.getTime()));
+        }
+
+
+
 
     public void clearName(View view) {
         eventNameInput.setText("");
@@ -73,7 +108,7 @@ public class AddEvent extends AppCompatActivity {
     public void createButtonClicked(View view) {
         Event event = new Event();
         event.setName(eventNameInput.getText().toString());
-        event.setDate(extractDate());
+        event.setDate(dateText.getText().toString());
         event.setStartTime(startTimeSpinner.getSelectedItem().toString());
         event.setEndTime(endTimeSpinner.getSelectedItem().toString());
         event.setLocation(locationInput.getText().toString());
@@ -90,22 +125,6 @@ public class AddEvent extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public String[] initDays() {
-        String[] days = new String[31];
-        for (int i = 0; i < 31; i++) {
-            if (i<9)
-                days[i] = "0"+String.valueOf((Integer) i+1);
-            else
-                days[i] = String.valueOf((Integer)i + 1);
-        }
-        return days;
-    }
-
-    public String[] initYears() {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String [] years ={String.valueOf(year),String.valueOf(year+1)};
-        return years;
-    }
 
     public String[] initTime(){
         String[] time = new String[18];
@@ -113,25 +132,6 @@ public class AddEvent extends AppCompatActivity {
             time[i] = String.valueOf((Integer)i + 6) + ":00";
         }
         return time;
-    }
-
-    public String extractDate(){
-        String[] months = {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV<","DEC"};
-        String month="ERR";
-
-        String selectMonth=monthSpinner.getSelectedItem().toString();
-        for (int i = 0;i<12;i++){
-            if (months[i].equals(selectMonth)){
-                if (i<9)
-                    month = "0"+String.valueOf((Integer) i+1);
-                else
-                    month = String.valueOf((Integer) i+1);
-                break;
-            }
-        }
-        String day = daySpinner.getSelectedItem().toString();
-        String year = yearSpinner.getSelectedItem().toString();
-        return year+"-"+month+"-"+day;
     }
 
 }

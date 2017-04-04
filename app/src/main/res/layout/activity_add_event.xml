@@ -36,7 +36,7 @@
         android:text="Location"
         android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +46,7 @@
 
     <EditText
         android:id="@+id/locationInput"
+        android:selectAllOnFocus="true"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -66,6 +67,7 @@
 
     <EditText
         android:id="@+id/detailInput"
+        android:selectAllOnFocus="true"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -86,6 +88,7 @@
 
     <EditText
         android:id="@+id/eventNameInput"
+        android:selectAllOnFocus="true"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -105,37 +108,7 @@
         android:layout_marginEnd="8dp" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Year"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintLeft_toRightOf="@+id/textView4"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.547" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Day"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
-        app:layout_constraintLeft_toRightOf="@+id/textView3"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.285" />
-
-    <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -144,17 +117,17 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Month"
+        android:text="Date:"
         android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.205" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -245,54 +218,6 @@
         android:layout_marginEnd="8dp" />
 
     <Spinner
-        android:id="@+id/monthSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginBottom="384dp"
-        android:layout_marginRight="207dp"
-        android:entries="@array/monthsinyear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="207dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Spinner
-        android:id="@+id/daySpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="384dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
-        app:layout_constraintLeft_toRightOf="@+id/monthSpinner"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Spinner
-        android:id="@+id/yearSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="384dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/daySpinner"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Spinner
         android:id="@+id/startTimeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -319,6 +244,31 @@
         app:layout_constraintHorizontal_bias="0.812"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/pickDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="Pick Date"
+        app:layout_constraintBaseline_toBaselineOf="@+id/dateText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.843" />
 
 
 </android.support.constraint.ConstraintLayout>
