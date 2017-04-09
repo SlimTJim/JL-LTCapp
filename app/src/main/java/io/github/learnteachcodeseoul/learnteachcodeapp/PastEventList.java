@@ -1,6 +1,9 @@
 package io.github.learnteachcodeseoul.learnteachcodeapp;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
 public class PastEventList extends AppCompatActivity {
 
     EventDBHandler eDBHandler;
@@ -21,6 +25,8 @@ public class PastEventList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_event_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#20B2AA")));
+
 
 
         eDBHandler = new EventDBHandler(this,null,null,2);

@@ -1,7 +1,12 @@
 package io.github.learnteachcodeseoul.learnteachcodeapp;
 
 
-public class Event {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class Event implements Serializable{
 
     private int id;
     private String name;
@@ -70,4 +75,5 @@ public class Event {
     public void setLocation(String location) {
         this.location = location;
     }
+
 }

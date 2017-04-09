@@ -3,6 +3,7 @@ package io.github.learnteachcodeseoul.learnteachcodeapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -41,6 +43,24 @@ public class MainActivity extends AppCompatActivity
         final ListView eventListView = (ListView) findViewById(R.id.eventList);
         eventListView.setAdapter(eventAdapter);
 
+
+
+        eventListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Serializable event = (Serializable) parent.getItemAtPosition(position);
+                        Intent intent= new Intent(MainActivity.this,ShowEventInfo.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("EventInfo",event);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+
+
+                    }
+                }
+        );
 
         eventListView.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
