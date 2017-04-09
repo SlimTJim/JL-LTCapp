@@ -2,7 +2,6 @@ package io.github.learnteachcodeseoul.learnteachcodeapp;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class TimeFragment extends Fragment {
+public class LocationFragment extends Fragment {
 
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -21,16 +21,15 @@ public class TimeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnTimeFragmentInteractionListener mListener;
+    private OnLocationFragmentInteractionListener mListener;
 
-    public TimeFragment() {
+    public LocationFragment() {
         // Required empty public constructor
     }
 
 
-
-    public static TimeFragment newInstance(String param1, String param2) {
-        TimeFragment fragment = new TimeFragment();
+    public static LocationFragment newInstance(String param1, String param2) {
+        LocationFragment fragment = new LocationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -49,11 +48,10 @@ public class TimeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_time, container, false);
+                             Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_location, container, false);
         view.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     view.setBackgroundColor(Color.parseColor("#DCDCDC"));
                 }else if(event.getAction() == MotionEvent.ACTION_UP){
@@ -69,15 +67,15 @@ public class TimeFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onTimeFragmentInteraction();
+            mListener.onLocationFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnTimeFragmentInteractionListener) {
-            mListener = (OnTimeFragmentInteractionListener) context;
+        if (context instanceof OnLocationFragmentInteractionListener) {
+            mListener = (OnLocationFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -90,8 +88,8 @@ public class TimeFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnTimeFragmentInteractionListener {
+    public interface OnLocationFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onTimeFragmentInteraction();
+        void onLocationFragmentInteraction(Uri uri);
     }
 }
