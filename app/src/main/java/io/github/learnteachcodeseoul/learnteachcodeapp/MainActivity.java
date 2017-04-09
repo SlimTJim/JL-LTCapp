@@ -51,9 +51,7 @@ public class MainActivity extends AppCompatActivity
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Serializable event = (Serializable) parent.getItemAtPosition(position);
                         Intent intent= new Intent(MainActivity.this,ShowEventInfo.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("EventInfo",event);
-                        intent.putExtras(bundle);
+                        intent.putExtra("EventInfo",event);
                         startActivity(intent);
 
 
