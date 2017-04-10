@@ -1,9 +1,9 @@
 package io.github.learnteachcodeseoul.learnteachcodeapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -24,7 +25,7 @@ public class PastEventList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_event_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#20B2AA")));
 
 
@@ -35,6 +36,21 @@ public class PastEventList extends AppCompatActivity {
         final ArrayAdapter eventAdapter = new EventAdapter(this, eventArrayList);
         final ListView eventListView = (ListView) findViewById(R.id.pastEventList);
         eventListView.setAdapter(eventAdapter);
+
+
+        eventListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Serializable event = (Serializable) parent.getItemAtPosition(position);
+                        Intent intent= new Intent(PastEventList.this,ShowEventInfo.class);
+                        intent.putExtra("EventInfo",event);
+                        intent.putExtra("Past",true);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.right_slide_in,R.anim.fade_out);
+                    }
+                }
+        );
 
         eventListView.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
@@ -59,13 +75,11 @@ public class PastEventList extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(intent, 0);
+        overridePendingTransition(R.anim.right_slide_in_drawer, R.anim.fade_out_drawer);
+        return true;
 
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            overridePendingTransition  (R.anim.right_slide_in,R.anim.fade_out);
-            return true;
-        }
-        return false;
     }
 
 }

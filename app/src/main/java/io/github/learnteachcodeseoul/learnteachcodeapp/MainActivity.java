@@ -30,14 +30,12 @@ public class MainActivity extends AppCompatActivity
 
     EventDBHandler eDBHandler;
     ArrayList<Event> eventArrayList;
-    TextView testText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         eDBHandler = new EventDBHandler(this,null,null,2);
-
         eventArrayList = eDBHandler.getAllFutureEvents();
         final ArrayAdapter eventAdapter = new EventAdapter(this, eventArrayList);
         final ListView eventListView = (ListView) findViewById(R.id.eventList);
@@ -53,9 +51,7 @@ public class MainActivity extends AppCompatActivity
                         Intent intent= new Intent(MainActivity.this,ShowEventInfo.class);
                         intent.putExtra("EventInfo",event);
                         startActivity(intent);
-
-
-
+                        overridePendingTransition(R.anim.right_slide_in,R.anim.fade_out);
                     }
                 }
         );
