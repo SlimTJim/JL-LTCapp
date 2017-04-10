@@ -76,7 +76,7 @@ public class PastEventList extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
         overridePendingTransition(R.anim.right_slide_in_drawer, R.anim.fade_out_drawer);
         return true;
 

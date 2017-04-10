@@ -93,7 +93,7 @@ public class ShowEventInfo extends AppCompatActivity implements TimeFragment.OnT
             intent = new Intent(getApplicationContext(), PastEventList.class);
         else
             intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
         overridePendingTransition(R.anim.right_slide_in,R.anim.fade_out);
         return true;
 
