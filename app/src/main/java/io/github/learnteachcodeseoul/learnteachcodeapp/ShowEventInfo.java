@@ -37,7 +37,6 @@ public class ShowEventInfo extends AppCompatActivity implements TimeFragment.OnT
         if (checkPast) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#20B2AA")));
             getSupportActionBar().setTitle("Past Event Information");
-
         }
         event = (Event) data.getSerializable("EventInfo");
 
@@ -82,7 +81,6 @@ public class ShowEventInfo extends AppCompatActivity implements TimeFragment.OnT
         Date date1 = inputDF.parse(date);
         cal.setTime(date1);
         Integer day = cal.get(Calendar.DAY_OF_MONTH);
-
         return cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) + ", " + formatter.format(date1) + " " + day.toString();
     }
 
@@ -96,7 +94,6 @@ public class ShowEventInfo extends AppCompatActivity implements TimeFragment.OnT
         startActivity(intent);
         overridePendingTransition(R.anim.right_slide_in,R.anim.fade_out);
         return true;
-
     }
 
 }

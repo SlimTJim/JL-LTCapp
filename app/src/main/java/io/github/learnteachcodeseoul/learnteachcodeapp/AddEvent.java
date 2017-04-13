@@ -1,9 +1,11 @@
 package io.github.learnteachcodeseoul.learnteachcodeapp;
 
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import java.util.Locale;
 
 public class AddEvent extends AppCompatActivity {
@@ -23,12 +26,8 @@ public class AddEvent extends AppCompatActivity {
     Button pickDateButton;
     TextView dateText;
     EditText eventNameInput;
-    EditText dateInput;
     EditText locationInput;
     EditText detailInput;
-    Spinner monthSpinner;
-    Spinner daySpinner;
-    Spinner yearSpinner;
     Spinner startTimeSpinner;
     Spinner endTimeSpinner;
 
@@ -41,6 +40,8 @@ public class AddEvent extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
         eDBHandler = new EventDBHandler(this, null, null, 2);
         myCalendar = Calendar.getInstance();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         pickDateButton = (Button) findViewById(R.id.pickDateButton);
         eventNameInput = (EditText) findViewById(R.id.eventNameInput);
         locationInput = (EditText) findViewById(R.id.locationInput);
@@ -105,11 +106,6 @@ public class AddEvent extends AppCompatActivity {
         }
     }
 
-    public void cancelButtonClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
 
     public String[] initTime(){
         String[] time = new String[18];
@@ -117,6 +113,13 @@ public class AddEvent extends AppCompatActivity {
             time[i] = String.valueOf((Integer)i + 6) + ":00";
         }
         return time;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_slide_in,R.anim.fade_out);
+        return true;
     }
 
 }

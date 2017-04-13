@@ -2,7 +2,6 @@ package io.github.learnteachcodeseoul.learnteachcodeapp;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
