@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setNotification(){
         try {
-            if (isAlertTime(eventArrayList.get(0).getDate()))
+            if (!eventArrayList.isEmpty() && isAlertTime(eventArrayList.get(0).getDate()))
                 setAlert();
         } catch (ParseException e) {
             e.printStackTrace();

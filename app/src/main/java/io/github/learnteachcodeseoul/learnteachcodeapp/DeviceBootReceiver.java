@@ -30,7 +30,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
                 EventDBHandler eDBHandler = new EventDBHandler(context, null, null, 2);
                 eventArrayList = eDBHandler.getAllFutureEvents();
 
-            if (isAlertTime(eventArrayList.get(0).getDate())) {
+            if (!eventArrayList.isEmpty() && isAlertTime(eventArrayList.get(0).getDate())) {
                 Calendar alertTime = Calendar.getInstance();
                 alertTime.set(Calendar.HOUR_OF_DAY, 12);
                 alertTime.set(Calendar.MINUTE, 0);
